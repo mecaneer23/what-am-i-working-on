@@ -3,8 +3,8 @@
 Generate a HTML file with what the user is working on. Open the file in a browser.
 """
 
-import os
 from argparse import ArgumentParser, Namespace
+from pathlib import Path
 from time import localtime, strftime
 from webbrowser import open as open_html
 
@@ -31,10 +31,10 @@ def main() -> None:
     """
     input_string = " ".join(parse_args().input_string)
     filename = strftime("%Y-%m-%d_%H%M%S.html", localtime())
-    filepath = f"html/{filename}"
-    with open(filepath, "w", encoding="utf-8") as file:
+    filepath = Path(f"html/{filename}")
+    with filepath.open("w", encoding="utf-8") as file:
         file.write(generate_html(input_string))
-    open_html(f"file://{os.path.realpath(filepath)}")
+    open_html(f"file://{filepath.resolve()}")
 
 
 if __name__ == "__main__":
