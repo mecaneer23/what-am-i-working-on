@@ -16,11 +16,11 @@ def parse_args() -> Namespace:
     return parser.parse_args()
 
 
-def generate_html(input_string: str) -> str:
+def generate_html(input_string: str, template_location: Path) -> str:
     """
     Open `template.html`. Fill in template variables with computed strings.'
     """
-    with open("template.html", "r", encoding="utf-8") as file:
+    with template_location.open("r", encoding="utf-8") as file:
         template = file.read()
     return template.replace("{{ input_string }}", input_string)
 
@@ -31,10 +31,11 @@ def main() -> None:
     """
     input_string = " ".join(parse_args().input_string)
     filename = strftime("%Y-%m-%d_%H%M%S.html", localtime())
-    Path("html").mkdir(exist_ok=True)
-    filepath = Path(f"html/{filename}")
+    local_path = Path(__file__).parent.joinpath("html")
+    local_path.mkdir(exist_ok=True)
+    filepath = local_path.joinpath(filename)
     with filepath.open("w", encoding="utf-8") as file:
-        file.write(generate_html(input_string))
+        file.write(generate_html(input_string, local_path.parent.joinpath("template.html")))
     open_html(f"file://{filepath.resolve()}")
 
 
