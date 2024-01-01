@@ -31,6 +31,7 @@ def main() -> None:
     """
     input_string = " ".join(parse_args().input_string)
     filename = strftime("%Y-%m-%d_%H%M%S.html", localtime())
+    Path("html").mkdir(exist_ok=True)
     filepath = Path(f"html/{filename}")
     with filepath.open("w", encoding="utf-8") as file:
         file.write(generate_html(input_string))
