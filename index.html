@@ -69,6 +69,11 @@
                 animation: octocat-wave 560ms ease-in-out
             }
         }
+
+        [contentEditable=true]:empty:not(:focus):before {
+            content: attr(data-placeholder);
+            color: lightgray;
+        }
     </style>
     <a href="https://github.com/mecaneer23/what-am-i-working-on" class="github-corner"
         aria-label="View source on GitHub"><svg viewBox="0 0 250 250" aria-hidden="true">
@@ -81,7 +86,7 @@
                 fill="currentColor" class="octo-body"></path>
         </svg>
     </a>
-    <h2 contenteditable="true">Placeholder</h2>
+    <h2 contenteditable="true" data-placeholder="What are you working on?"></h2>
 </body>
 
 </html>
